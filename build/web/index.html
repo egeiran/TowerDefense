@@ -525,9 +525,16 @@ frameborder="1"
             return ["Laster", false]
         }
 
+        // If loading stalls the runtime just stops talking, so say something
+        // rather than showing "Laster" forever.
+        const slow = setTimeout(function () {
+            hint.textContent = "Dette tar lengre tid enn vanlig – se konsollen for detaljer"
+        }, 45000)
+
         const observer = new MutationObserver(function () {
             if (infobox.style.display === "none") {
                 observer.disconnect()
+                clearTimeout(slow)
                 boot.classList.add("done")
                 setTimeout(function () { boot.style.display = "none" }, 600)
                 return
@@ -537,7 +544,14 @@ frameborder="1"
             const [text, ready] = label(raw)
             status.textContent = text
             boot.classList.toggle("ready", ready)
-            if (ready) hint.textContent = "Nettleseren krever et klikk før spillet får spille lyd"
+            if (ready) {
+                clearTimeout(slow)
+                hint.textContent = "Nettleseren krever et klikk før spillet får spille lyd"
+            } else {
+                // keep the runtime's own wording visible - it is the only clue
+                // there is when something goes wrong
+                hint.textContent = raw
+            }
         })
 
         observer.observe(infobox, {
