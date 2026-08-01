@@ -14,6 +14,9 @@ class World():
         """
         self.level = 1
         self.game_speed = 1
+        # set every frame by the game loop: how long the last frame took,
+        # relative to c.REFERENCE_FPS
+        self.frame_scale = 1
         self.health = c.HEALTH
         self.money = c.MONEY
         self.tile_map = []

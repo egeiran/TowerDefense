@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# pygbag build cache (the finished site in build/web IS committed)
+build/web-cache/
