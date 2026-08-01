@@ -3,25 +3,53 @@
 Et tower defense-spill skrevet i Python med pygame. Kan spilles både på maskinen
 og i nettleseren (WebAssembly via [pygbag](https://pypi.org/project/pygbag/)).
 
-## Kjøre lokalt
+## Teste web-versjonen lokalt (uten å installere noe)
+
+`build/web/` er ferdigbygget og ligger i repoet, så det holder med en helt
+vanlig statisk webserver:
 
 ```bash
+cd build/web
+python3 -m http.server 8000
+# åpne http://localhost:8000 i nettleseren
+```
+
+Du må ha nett, siden Python-runtimen lastes fra pygbag sitt CDN.
+Åpne filen direkte (`file://`) fungerer *ikke* – den må serveres over HTTP.
+
+## Kjøre desktop-versjonen
+
+macOS/Homebrew-Python nekter å installere pakker systemvidt (PEP 668), så bruk
+et virtuelt miljø:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
 pip install pygame-ce
 python spill.py          # eller: python main.py
 ```
 
-## Kjøre i nettleser lokalt
+Neste gang holder det med `source .venv/bin/activate` før du kjører spillet.
+Merk at pygame-ce ikke nødvendigvis har ferdige pakker for helt ferske
+Python-versjoner (f.eks. 3.14) – da kan du lage miljøet med en eldre python,
+f.eks. `brew install python@3.12` og `/opt/homebrew/bin/python3.12 -m venv .venv`.
+
+## Bygge web-versjonen på nytt
+
+Trengs bare når du har endret spillet:
 
 ```bash
+python3 -m venv .venv                  # hopp over hvis du alt har den
+source .venv/bin/activate
 pip install pygbag
-python -m pygbag --template web/default.tmpl --icon favicon.png .
-# åpne http://localhost:8000
+./build_web.sh
 ```
 
-## Bygge web-versjonen
+Vil du kjøre pygbag sin egen testserver i stedet for `http.server`:
 
 ```bash
-./build_web.sh
+python -m pygbag --template web/default.tmpl --icon favicon.png .
+# åpne http://localhost:8000
 ```
 
 Resultatet havner i `build/web/` og er en helt vanlig statisk nettside:
