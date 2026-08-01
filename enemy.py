@@ -47,8 +47,9 @@ class Enemy(pygame.sprite.Sprite):
             world.missed_enemies += 1
 
         dist = self.movement.length()
-        if dist >= (self.speed * world.game_speed):
-            self.pos += self.movement.normalize() * (self.speed * world.game_speed)
+        step = self.speed * world.game_speed * world.frame_scale
+        if dist >= step:
+            self.pos += self.movement.normalize() * step
         else:
             if dist != 0:
                  self.pos += self.movement.normalize() * dist

@@ -4,6 +4,9 @@ ROWS, COLS = 15, 15
 TILE_SIZE = 48
 WIDTH, HEIGHT = COLS * TILE_SIZE, ROWS   * TILE_SIZE
 FPS = 100
+# The speed the game was tuned at. Browsers usually cap rendering at 60 FPS,
+# so movement is scaled against this to keep web and desktop playing alike.
+REFERENCE_FPS = 100
 HEALTH = 50
 MONEY = 650
 SIDE_PANEL = 300
