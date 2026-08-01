@@ -235,6 +235,15 @@ function show_infobox() {
             right: 0;
         }
 
+        /* The canvas keeps the game's 1020x720 ratio and is centred by the
+           runtime, so a window with another ratio shows the page behind it
+           along two edges. Paint that area on both html and body: an embed
+           (iframe) that only styles one of them would otherwise show through. */
+        html {
+            background-color: #0a0b0a;
+            color-scheme: dark;
+        }
+
         body {
             font-family: arial;
             margin: 0;
