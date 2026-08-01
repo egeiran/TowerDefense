@@ -4,10 +4,11 @@
 #   pip install pygbag
 #   ./build_web.sh
 #
-# Requires internet: pygbag downloads the HTML template matching its own
-# version from https://pygame-web.github.io/cdn/<version>/ (and caches it in
-# build/web-cache/). Do NOT pass --template with a hand-picked file - a
-# template from a different version than the runtime gives a blank page.
+# web/default.tmpl is pygbag's page template with our own loading screen added
+# (see the #boot element in it). It is pinned on purpose - pygbag would
+# otherwise download its own template and overwrite the design. If you upgrade
+# pygbag and the page breaks, diff web/default.tmpl against the template
+# pygbag downloads into build/web-cache/ and port the #boot block over.
 #
 # The result in build/web/ is a plain static site. It is committed to the repo
 # so Vercel can serve it without a build step - re-run this script and commit
@@ -27,6 +28,7 @@ python3 -m pygbag \
     --app_name towerdefense \
     --width 1020 \
     --height 720 \
+    --template web/default.tmpl \
     --icon favicon.png \
     .
 

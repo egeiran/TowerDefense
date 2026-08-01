@@ -3,6 +3,11 @@
 Et tower defense-spill skrevet i Python med pygame. Kan spilles både på maskinen
 og i nettleseren (WebAssembly via [pygbag](https://pypi.org/project/pygbag/)).
 
+![Skjermbilde fra spillet](docs/preview.png)
+
+`docs/preview.png` er et ekte skjermbilde fra spillet (1020×720) og kan brukes
+som forhåndsvisning der spillet lenkes opp.
+
 ## Teste web-versjonen lokalt (uten å installere noe)
 
 `build/web/` er ferdigbygget og ligger i repoet, så det holder med en helt
@@ -59,10 +64,22 @@ python -m pygbag --icon favicon.png .
 # åpne http://localhost:8000
 ```
 
-Bygging krever nett: pygbag laster ned HTML-malen som hører til sin egen
-versjon fra `https://pygame-web.github.io/cdn/<versjon>/`. Ikke bruk
-`--template` med en mal du har hentet manuelt – en mal fra en annen versjon
-enn runtimen gir en helt blank side.
+## Lasteskjermen
+
+Siden bruker `web/default.tmpl`: pygbags egen sidemal, med vår lasteskjerm lagt
+til (`#boot` i fila). Den viser spilltittelen, en fremdriftsindikator og
+«Klikk for å starte» mens Python-runtimen lastes ned, i stedet for pygbags
+standard terminalvindu.
+
+Teksten hentes fra `#infobox`, elementet runtimen skriver status til. Det er
+skjult med CSS, men må bli stående i DOM-en – vi speiler teksten inn i
+lasteskjermen og skjuler den når runtimen skjuler `#infobox`, som er øyeblikket
+spillet tar over.
+
+Malen er med vilje låst i repoet. Uten `--template` laster pygbag ned sin egen
+mal og overskriver designet. Oppgraderer du pygbag og siden slutter å virke:
+sammenlign `web/default.tmpl` med malen pygbag laster ned til
+`build/web-cache/`, og flytt `#boot`-blokken over i den nye.
 
 Resultatet havner i `build/web/` og er en helt vanlig statisk nettside:
 
