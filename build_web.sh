@@ -4,14 +4,17 @@
 #   pip install pygbag
 #   ./build_web.sh
 #
-# The result in build/web/ is a plain static site: index.html, favicon.png and
-# towerdefense.apk (the game + assets). It is committed to the repo so Vercel
-# can serve it without a build step - re-run this script and commit whenever
-# you change the game.
+# Requires internet: pygbag downloads the HTML template matching its own
+# version from https://pygame-web.github.io/cdn/<version>/ (and caches it in
+# build/web-cache/). Do NOT pass --template with a hand-picked file - a
+# template from a different version than the runtime gives a blank page.
+#
+# The result in build/web/ is a plain static site. It is committed to the repo
+# so Vercel can serve it without a build step - re-run this script and commit
+# whenever you change the game.
 #
 # To try it locally before deploying:
-#   python3 -m pygbag --template web/default.tmpl --icon favicon.png .
-#   -> open http://localhost:8000
+#   cd build/web && python3 -m http.server 8000   -> http://localhost:8000
 set -euo pipefail
 
 cd "$(dirname "$0")"
@@ -22,7 +25,6 @@ python3 -m pygbag \
     --app_name towerdefense \
     --width 1020 \
     --height 720 \
-    --template web/default.tmpl \
     --icon favicon.png \
     .
 

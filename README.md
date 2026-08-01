@@ -48,9 +48,14 @@ pip install pygbag
 Vil du kjøre pygbag sin egen testserver i stedet for `http.server`:
 
 ```bash
-python -m pygbag --template web/default.tmpl --icon favicon.png .
+python -m pygbag --icon favicon.png .
 # åpne http://localhost:8000
 ```
+
+Bygging krever nett: pygbag laster ned HTML-malen som hører til sin egen
+versjon fra `https://pygame-web.github.io/cdn/<versjon>/`. Ikke bruk
+`--template` med en mal du har hentet manuelt – en mal fra en annen versjon
+enn runtimen gir en helt blank side.
 
 Resultatet havner i `build/web/` og er en helt vanlig statisk nettside:
 
