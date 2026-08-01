@@ -11,11 +11,18 @@ vanlig statisk webserver:
 ```bash
 cd build/web
 python3 -m http.server 8000
-# åpne http://localhost:8000 i nettleseren
+# åpne http://127.0.0.1:8000 i nettleseren
 ```
 
 Du må ha nett, siden Python-runtimen lastes fra pygbag sitt CDN.
-Åpne filen direkte (`file://`) fungerer *ikke* – den må serveres over HTTP.
+Å åpne fila direkte (`file://`) fungerer *ikke* – den må serveres over HTTP.
+
+**Bruk `127.0.0.1`, ikke `localhost`.** Runtimen sjekker bokstavelig om URL-en
+starter med `http://localhost:8`, og slår i så fall på en dev-modus der
+pygame-ce-pakken hentes fra `http://localhost:8000/cdn/` i stedet for CDN-et.
+Den mappa finnes bare i pygbag sin egen testserver, så med `http.server` får du
+404 på wheelen og en blank side. `127.0.0.1` treffer ikke sjekken, og på Vercel
+(https) er den heller ikke i veien.
 
 ## Kjøre desktop-versjonen
 

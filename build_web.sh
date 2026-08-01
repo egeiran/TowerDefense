@@ -14,7 +14,9 @@
 # whenever you change the game.
 #
 # To try it locally before deploying:
-#   cd build/web && python3 -m http.server 8000   -> http://localhost:8000
+#   cd build/web && python3 -m http.server 8000   -> http://127.0.0.1:8000
+# Use 127.0.0.1, not localhost: on "http://localhost:8*" the runtime switches to
+# a dev mode that looks for pygame-ce under /cdn/ on your own server.
 set -euo pipefail
 
 cd "$(dirname "$0")"
