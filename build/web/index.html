@@ -139,6 +139,12 @@ asyncio.run( custom_site() )
 --><script type="application/javascript">
 // END BLOCK
 
+// Pygbag-loaderen (pythons.js) kaller window.focus() når canvas er klart.
+// Kjørende som embed (iframe, f.eks. porteføljens live-preview) stjeler det
+// fokus fra vertssiden og får nettleseren til å auto-scrolle iframen inn i
+// viewporten. pythons.js er type=module og kjører etter dette scriptet.
+if (window.self !== window.top) { window.focus = function () {}; }
+
 
 
 // this dict is available under PyConfig.config from __main__
